@@ -16,6 +16,8 @@ namespace Timesheets.Controllers
 
         public IActionResult Index()
         {
+            var  timesheets = _timesheetService.GetAll().OrderBy(x=>x.TotalHours);
+            ViewBag.Timesheets = timesheets;
             return View();
         }
 
@@ -30,7 +32,7 @@ namespace Timesheets.Controllers
 
             _timesheetService.Add(timesheet);
 
-            var timesheets = _timesheetService.GetAll();
+            ViewBag.Timesheets = _timesheetService.GetAll();
 
             return View();
         }
