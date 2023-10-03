@@ -8,10 +8,12 @@ namespace Timesheets.Controllers
     public class TimesheetController : Controller
     {
         private ITimesheetService _timesheetService;
+        private readonly ICsvService _csvService;
 
-        public TimesheetController(ITimesheetService timesheetService)
+        public TimesheetController(ITimesheetService timesheetService, ICsvService csvService)
         {
             _timesheetService = timesheetService;
+            _csvService = csvService;
         }
 
         public IActionResult Index()
@@ -36,6 +38,18 @@ namespace Timesheets.Controllers
 
             return View();
         }
+        [HttpGet]
+        public IActionResult Csv()
+        {
+            var timesheets = _timesheetService.GetAll();
+            var csv = _csvService.CreateCSV(timesheets);
+            if (csv == string.Empty)
+            {
+                return NoContent();
+            }
+            return Content(csv, "text/csv");
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

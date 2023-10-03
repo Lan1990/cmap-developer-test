@@ -9,6 +9,7 @@ var services = builder.Services;
 // Add services to the container.
 services.AddControllersWithViews();
 services.AddDbContext<DataContext>();
+services.AddScoped<ICsvService, CsvService>();
 services.AddScoped<ITimesheetService, TimesheetService>();
 services.AddScoped<ITimesheetRepository, TimesheetRepository>();
 
