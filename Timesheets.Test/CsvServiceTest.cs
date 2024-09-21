@@ -24,7 +24,7 @@ public class CsvServiceTest
                 TotalHours = "8" 
             } 
         };
-        var csv = csvService.CreateCSV(timesheets);
+        string csv = csvService.CreateCSV(timesheets);
         Assert.Equal("Id, FirstName, LastName, Date, Project, Hours, TotalHours\r\n0, first, last, 01/01/2001, proj, 8, 8\r\n", csv);
     }
 
